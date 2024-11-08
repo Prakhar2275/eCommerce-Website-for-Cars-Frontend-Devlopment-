@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Menu Scroll Animation</title>
+    <style>
+        /* General Navbar styling */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 20px;
+            z-index: 10;
+        }
+
+        #navbar nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #navbar nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Initially hide the new menu */
+        #menu-new {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        /* Transition effect when switching menus */
+        #menu-old.hide {
+            opacity: 0;
+            /* transform: translateY(20px); */
+            pointer-events: none;
+        }
+
+        #menu-new.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Make the page scrollable for the effect */
+        section {
+            height: 200vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 150px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar with two menus: Old and New -->
+    <header id="navbar">
+        <nav>
+            <ul id="menu-old" class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul id="menu-new" class="menu">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Content to make the page scrollable -->
+        <section>
+            <h1>Scroll down to see the navbar menu change</h1>
+        </section>
+    </main>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const oldMenu = document.getElementById('menu-old');
+            const newMenu = document.getElementById('menu-new');
+            const scrollPosition = window.scrollY;
+            const pageHeight = document.body.scrollHeight - window.innerHeight;
+
+            // Calculate 10% of the scrollable height
+            const tenPercentScroll = pageHeight * 0.1;
+
+            // When scrolled more than 10%, hide the old menu and show the new menu
+            if (scrollPosition > tenPercentScroll) {
+                oldMenu.classList.add('hide');
+                newMenu.classList.add('show');
+            } 
+            else {
+                oldMenu.classList.remove('hide');
+                newMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
